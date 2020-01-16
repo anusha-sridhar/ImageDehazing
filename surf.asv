@@ -1,0 +1,28 @@
+
+I1=r;
+I1=rgb2gray(I1);
+
+
+
+I2=r;
+I2=rgb2gray(I2);
+
+
+n1=detectSURFFeatures(I1); 
+n2=detectSURFFeatures(I2); 
+
+
+
+[k1, n1] = extractFeatures(I1, n1);
+[k2, n2] = extractFeatures(I2, n2);
+
+
+boxPairs = matchFeatures(k1, k2);
+
+matchedBoxPoints = n1(boxPairs(:, 1), :);
+matchedScenePoints = n2(boxPairs(:, 2), :);
+figure;
+showMatchedFeatures(r, r, matchedBoxPoints, ...
+    matchedScenePoints, 'montage');
+title('Putatively Matched Points (Including Outliers)');
+
